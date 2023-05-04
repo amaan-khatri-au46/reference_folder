@@ -1,0 +1,148 @@
+// Q1. Explain all disc scheduling algorithms.
+Disk scheduling is done by operating systems to schedule I/O requests arriving for the disk. Disk scheduling is also known as I/O scheduling.
+
+Disk scheduling is important because:
+
+Multiple I/O requests may arrive by different processes and only one I/O request can be served at a time by the disk controller. Thus other I/O requests need to wait in the waiting queue and need to be scheduled.
+Two or more request may be far from each other so can result in greater disk arm movement.
+Hard drives are one of the slowest parts of the computer system and thus need to be accessed in an efficient manner.
+
+Disk Scheduling Algorithms
+1. FCFS: FCFS is the simplest of all the Disk Scheduling Algorithms. 
+In FCFS, the requests are addressed in the order they arrive in the disk queue.Let us understand this with the help of an example.
+
+2. SSTF: In SSTF (Shortest Seek Time First), requests having shortest seek time are executed first. So, 
+the seek time of every request is calculated in advance in the queue and then they are scheduled according to their calculated seek time.
+
+3.SCAN: In SCAN algorithm the disk arm moves into a particular direction and services the requests coming in its path and after reaching the end of disk, 
+it reverses its direction and again services the request arriving in its path. 
+
+4. CSCAN: In SCAN algorithm, the disk arm again scans the path that has been scanned, after reversing its direction. 
+So, it may be possible that too many requests are waiting at the other end or there may be zero or few requests pending at the scanned area.
+
+Q2. Explain the merge sort algorithm and derive its time complexity?
+(10marks)
+// this function is bascially for dividing the arr into 1 single
+// the we will call this mergeing fucntion for merging the it
+
+function divide(arr, l, r) {
+  if (l === r){
+    return [arr[r]];                                            
+  }
+
+  let mid = Math.floor((l + r) / 2);
+
+  let LeftArray = divide(arr, l, mid);
+  let rightArray = divide(arr, mid + 1, r);
+
+  let MergedArray = merge(LeftArray, rightArray);
+  return MergedArray;
+}
+
+const arr = [38,3,42,5,7,51];
+let sortedArray = divide(arr, 0, arr.length - 1);
+console.log(sortedArray);
+
+// in this function we bascially merging the arr into sorted form ...
+// const arr1 = [3, 12, 31, 49];
+// const arr2 = [5, 9, 20];
+function merge(arr1, arr2) {
+    let n1 = arr1.length;
+    let n2 = arr2.length;
+  
+    let p1 = 0;
+    let p2 = 0;
+    let res = [];
+  
+    while (p1 < n1 && p2 < n2) {
+      if (arr1[p1] <= arr2[p2]) {
+        res.push(arr1[p1]);
+        p1++;
+      } else {
+        res.push(arr2[p2]);
+        p2++;
+      }
+    }
+    while (p1 < n1) {
+      res.push(arr1[p1]);
+      p1++;
+    }
+  
+    while (p2 < n2) {
+      res.push(arr2[p2]);
+      p2++;
+    }
+    return res;
+  }
+    
+Time Complexity Merge Sort Is o(nLogn)
+  
+Q3. Explain types of Dynamic programming, with example
+Ans :
+Dynamic programming is a technique that breaks the problems into sub-problems, 
+and saves the result for future purposes so that we do not need to compute the result again. 
+The subproblems are optimized to optimize the overall solution is known as optimal substructure property. 
+The main use of dynamic programming is to solve optimization problems. 
+Here, optimization problems mean that when we are trying to find out the minimum or the maximum solution of a problem. 
+The dynamic programming guarantees to find the optimal solution of a problem if the solution exists.
+
+The definition of dynamic programming says that it is a technique for solving a complex problem by first breaking into a collection of simpler subproblems, 
+solving each subproblem just once, and then storing their solutions to avoid repetitive computations.
+
+// Q4. Differentiate BFS and DFS with their Time complexity.
+* BFS
+1. BFS stands for Breadth First Search.
+2. BFS(Breadth First Search) uses Queue data structure for finding the shortest path.
+3. BFS is a traversal approach in which we first walk through all nodes on the same level before moving on to the next level.  
+4. It works on the concept of FIFO (First In First Out). 
+5. The Time complexity of BFS is O(V + E) when Adjacency List is used and O(V^2) when Adjacency Matrix is used, where V stands for vertices and E stands for edges.
+
+* DFS 
+1. DFS(Depth First Search) uses Stack data structure.
+2. DFS(Depth First Search) uses Stack data structure.
+3. DFS is also a traversal approach in which the traverse begins at the root node and proceeds through the nodes as far as possible until we reach the node with no unvisited nearby nodes.
+4. It works on the concept of LIFO (Last In First Out).
+5. The Time complexity of DFS is also O(V + E) when Adjacency List is used and O(V^2) when Adjacency Matrix is used, where V stands for vertices and E stands for edges.
+
+
+
+
+// Q5. write a program to reverse a linked list using recursion
+function LLNODE(data, next) {
+  this.data = data;
+  this.next = next;
+}
+function addNodeElement(head, data) {
+  let curr = head;
+  while (curr.next !== null) {
+    curr = curr.next;
+  }
+  curr.next = new LLNODE(data, null);
+}
+let head = new LLNODE(1, null);
+addNodeElement(head, 2);
+addNodeElement(head, 3);
+addNodeElement(head, 4);
+addNodeElement(head, 5);
+
+function printLinkedList(head) {
+  for (let curr = head; curr !== null; curr = curr.next) {
+    console.log(curr.data);
+  }
+}
+printLinkedList(head);
+
+console.log("After reversing ---------");
+
+function reverse(head, prev) {
+  if (head === null) return prev;
+  let next = head.next;
+  head.next = prev;
+  return reverse(next, head);
+}
+let newhead = reverse(head, null);
+printLinkedList(newhead);
+
+
+
+ 
